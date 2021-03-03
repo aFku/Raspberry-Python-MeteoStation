@@ -1,5 +1,7 @@
 from MeteoLib.LightBH1750Lib import BH1750
 from MeteoLib.TempPreBMP180Lib import BMP180
+from MeteoLib.SQLMeasurements import DBManager
+import datetime
 
 bmp180 = BMP180(1)
 bh1750 = BH1750(1)
@@ -12,3 +14,5 @@ print('Light intensity:', dec2_light, 'lx')
 print('Temperature:', dec2_temp, 'C')
 print('Pressure:', round(dec2_pressure * 0.01, 2), 'hPa')
 
+db = DBManager()
+db.add_measurement(dec2_temp, dec2_pressure, dec2_light, datetime.datetime.now())
