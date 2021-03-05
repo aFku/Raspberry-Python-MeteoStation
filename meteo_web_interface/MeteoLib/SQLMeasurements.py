@@ -38,31 +38,29 @@ class DBManager:
 		self.session.add(measur)
 		self.session.commit()
 
-	def read_all_measurement_order_data(self):
-		Data = namedtuple('all_row', ['id', 'date', 'temperature', 'pressure', 'light'])
-		result = []
-		for instance in self.session.query(Measurement).order_by(Measurement.date_time):
-			result.append(Data(instance.id, instance.date_time,
-						 instance.temperature, instance.pressure, instance.light))
-		return result
+	def read_last_measurement(self):
+		Data = namedtuple('last_row', ['id', 'date', 'temperature', 'pressure', 'light'])
+		instance = self.session.query(Measurement).order_by(SA.desc(Measurement.date_time)).first()
+		last_row = Data(instance.id, instance.date_time, instance.temperature, instance.pressure, instance.light)
+		return last_row
 
 	def read_all_temperature(self):
-		Data = namedtuple('only_temperature', ['data', 'temperature'])
+		Data = namedtuple('only_temperature', ['date', 'temperature'])
 		result = []
 		for temp, date in self.session.query(Measurement.temperature, Measurement.date_time):
 			result.append(Data(date, temp))
 		return result
 
 	def read_all_pressure(self):
-		Data = namedtuple('only_pressure', ['data', 'pressure'])
+		Data = namedtuple('only_pressure', ['date', 'pressure'])
 		result = []
 		for pressure, date in self.session.query(Measurement.pressure, Measurement.date_time):
 			result.append(Data(date, pressure))
 		return result
 
 	def read_all_light(self):
-		Data = namedtuple('only_light', ['data', 'light'])
+		Data = namedtuple('only_light', ['date', 'light'])
 		result = []
-		for light, data in self.session.query(Measurement.light, Measurement.date_time):
+		for light, date in self.session.query(Measurement.light, Measurement.date_time):
 			result.append(Data(date, light))
 		return result

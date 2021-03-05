@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    		<meta charset="UTF-8">
+    		<title>{{ title }}</title>
+		<style>
+			.container{
+				display: flex;
+				justify-content: space-beetwen;
+
+			}
+			.title-container{
+				display: flex;
+				justify-content: space-beetwen;
+				width: 50%;
+				text-align: center;
+			}
+			.all-measr{
+				width: 50%;
+				height: 50vh;
+				overflow: auto;
+			}
+			.avg-measr{
+				width: 50%;
+				height: 50vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			th{
+				position: sticky;
+				top: 0;
+				background-color: #FDD19E
+			}
+			td, th {
+ 				border: 1px solid #dddddd;
+ 				text-align: left;
+ 				padding: 8px; 
+			}
+			tr:nth-child(even) {
+ 				background-color: #dddddd;
+			}
+			h3 {
+				width: 100%;
+				text-align: center;
+				position: sticky;
+				top: 0;
+			}
+			h1 {
+				text-align: center;
+			}
+			.navbar {
+				display: flex;
+				justify-content: space-between;
+				margin: 3% 0%;
+				width: 100%;
+				text-align: center;
+			}
+			.navbar-element{
+				margin: 0% 5%;
+				width: 12%;
+				display: flex;
+				justify-content: center;
+			}
+			a {
+				background-color: red;
+				box-shadow: 0 5px 0 darkred;
+				color: white;
+				padding: 0.5em 1em;
+				text-decoration: none;
+				text-transform: uppercase;
+				width: 100%;
+				display:inline-block;
+				text-align: center;
+			}
+			a:hover {
+				background-color: #ce0606;
+				cursor: pointer;
+			}
+			.current-info {
+				text-align: center;
+				display: flex;
+				justify-content: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="navbar-element">
+				<a href="temperature"> Temperature </a>
+			</div>
+                        <div class="navbar-element">
+                                <a href="pressure"> Pressure </a>
+                        </div>
+                        <div class="navbar-element">
+                                <a href="light"> Light </a>
+                        </div>
+		</div>
+			<h3> Current data </h3>
+		<div class="current-info">
+			<table style="width:35%">
+                                        <tr>
+                                        	<td><b>Temperature</b></td>
+						<td>{{ last.temperature }} &#176;C</td>
+                                        </tr>
+                                        <tr>
+                                                <td><b>Pressure</b></td> 
+                                                <td>{{ last.pressure }} Pa</td>
+                                        </tr>
+                                        <tr>
+                                                <td><b>Light</b></td> 
+                                                <td>{{ last.light }} lx</td>
+                                        </tr>
+                                        <tr>
+                                                <td><b>Measurement date</b></td> 
+                                                <td>{{ last.date }}</td>
+                                        </tr>
+                                </table>
+
+		</div>
+		<h1>{{ main_title }} </h1>
+		<div class="title-container">
+				<h3> {{ all_title }} </h3>
+		</div>
+		<div class="container">
+			<div class="all-measr">
+				<table style="width:100%">
+					<tr>
+						<th> Date </th>
+						<th> Value [{{ unit|safe }}]</th>
+					</tr>
+					{% for row in data %}
+						<tr>
+							<td> {{ row.0 }} </td>
+							<td> {{ row.1 }} </td> 
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div class="avg-measr">
+                                <table style="width:100%">
+				<h3> {{ avg_title }} </h3>
+                                        <tr>
+                                                <th> Period </th>
+                                                <th> Average value [{{ unit|safe }}] </th>
+                                        </tr>
+                                                <tr>
+                                                        <td> Today </td>
+                                                        <td> {{ avg_today }} </td>
+                                                </tr>
+                                                <tr>
+                                                        <td> Yesterday </td>
+                                                        <td> {{ avg_yesterday }} </td>
+                                                </tr>
+                                                <tr>
+                                                        <td> This week </td>
+                                                        <td> {{ avg_week }} </td>
+                                                </tr>
+                                                <tr>
+                                                        <td> This month </td>
+                                                        <td> {{ avg_month }} </td>
+                                                </tr>
+                                                <tr>
+                                                        <td> This year </td>
+                                                        <td> {{ avg_year }} </td>
+                                                </tr>
+                                </table>
+			</div>
+		</div>
+	</body>
+</html>

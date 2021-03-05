@@ -3,3 +3,7 @@ wheel
 smbus2
 sqlalchemy
 psycopg2
+Django
+celery[redis]
+matplotlib
+gunicorn
