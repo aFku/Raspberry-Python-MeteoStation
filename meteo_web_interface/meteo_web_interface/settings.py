@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from celery.schedules import crontab
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6otoofyd!bj!g)g&%11=k3pt&c1ox265!yl@mpr*g@avxec9fk'
+SECRET_KEY = os.getenv('WEB_INTERFACE_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -129,6 +129,6 @@ CELERY_RESULT_BACKEND="redis://localhost:6379/1"
 CELERY_BEAT_SCHEDULE= {
     'exec_measur': {
         'task': 'web_app.tasks.routine_measur',
-        'schedule': crontab(minute='*', hour='*', day_of_week='*', day_of_month='*', month_of_year='*')
+        'schedule': crontab(minute='0', hour='*', day_of_week='*', day_of_month='*', month_of_year='*')
     }
 }

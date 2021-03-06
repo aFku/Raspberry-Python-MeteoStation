@@ -5,5 +5,4 @@ sqlalchemy
 psycopg2
 Django
 celery[redis]
-matplotlib
 gunicorn
