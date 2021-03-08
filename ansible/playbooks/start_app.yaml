@@ -1,0 +1,8 @@
+--- # Reboot raspberry
+
+- name: Start app
+  hosts: raspberry_meteo
+  gather_facts: no
+  tasks:
+  - name: Reboot
+    reboot:

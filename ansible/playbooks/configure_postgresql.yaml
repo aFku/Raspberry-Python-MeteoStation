@@ -1,0 +1,17 @@
+--- # Create user and database in PostgreSQL
+
+- name: Install software
+  hosts: raspberry_meteo
+  gather_facts: no
+  tasks:
+    - name: Create database for aplication
+      become_user: "postgres"
+      community.postgresql.postgresql_db:
+        name: "{{ DB_NAME.stdout }}"      # Create database with name from env vars
+    - name: Create user and grant privileges
+      become_user: "postgres"
+      community.postgresql.postgresql_user:
+        db: "{{ DB_NAME.stdout }}"        # connect to database
+        name: "{{ DB_USER.stdout }}"  # create user with this username
+        password: "{{ DB_PASSWORD.stdout }}" # set password for user
+        priv: "ALL"                                 # Give all privileges

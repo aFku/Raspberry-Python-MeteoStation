@@ -1,0 +1,36 @@
+--- # Execute all playbooks
+
+- name: Extract ENVs to ansible
+  gather_facts: yes
+  hosts: raspberry_meteo
+  tasks:
+  - name: DB_NAME
+    shell: . {{ env_path }} && printenv DB_NAME
+    register: DB_NAME
+  - name: DB_PASSWORD
+    shell: . {{ env_path }} && printenv DB_PASSWORD
+    register: DB_PASSWORD
+  - name: DB_USER
+    shell: . {{ env_path }} && printenv DB_USER
+    register: DB_USER
+  - name: APP_PATH
+    shell: . {{ env_path }} && printenv APP_PATH
+    register: APP_PATH
+
+- name: Prepare system for using ansible
+  import_playbook: playbooks/system_init.yaml
+
+- name: Install required software with Apt
+  import_playbook: playbooks/required_software_apt.yaml
+
+- name: Get app from Github
+  import_playbook: playbooks/app_configuration.yaml
+
+- name: Configure PostreSQL
+  import_playbook: playbooks/configure_postgresql.yaml
+
+- name: Set up cron
+  import_playbook: playbooks/setup_cron_task.yaml
+
+- name: Start app
+  import_playbook: playbooks/start_app.yaml

@@ -1,0 +1,24 @@
+--- # Set up cron to launch Redis, Gunicorn and Celery after every reboot
+
+- name: Configure cron
+  hosts: raspberry_meteo
+  gather_facts: no
+  tasks:
+  - name: Get username of user # Required to configure cron
+    shell: printenv SUDO_USER
+    register: username
+  - name: Create file in /etc/cron.d to schedule executing startup.sh
+    file:
+      path: /etc/cron.d/{{ username.stdout }}
+      state: touch
+      mode: '755'
+  - name: Fill file with command. With this line cron will execute startup.sh after reboot
+    lineinfile:
+      path: /etc/cron.d/{{ username.stdout }}
+      line: "@reboot {{ username.stdout }} bash {{ APP_PATH.stdout }}/meteo_web_interface/startup.sh {{ username.stdout }} 2>&1 | logger -t project-meteo" # We are also logging everything to syslog
+  - name: Restart cron
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: cron
+

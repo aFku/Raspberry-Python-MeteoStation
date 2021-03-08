@@ -1,0 +1,28 @@
+---   # Download up and set up
+
+- name: App configuration
+  hosts: raspberry_meteo
+  gather_facts: no
+  tasks:
+    - name: Install GIT to get source code
+      apt:
+        name: git
+    - name: Create directory for app
+      file:
+        path: "{{ APP_PATH.stdout }}"
+        state: directory
+        mode: '0755'
+    - name: Download Github repository
+      git:
+        repo: "https://github.com/aFku/Raspberry-Python-MeteoStation.git"
+        dest: /tmp/Meteo
+    - name: Move repository content to app directory
+      command:
+        cmd: cp -R /tmp/Meteo/. {{ APP_PATH.stdout }}
+    - name: Remove local repo
+      file:
+        path: /tmp/Meteo
+        state: absent
+    - name: Install pip requirements
+      pip:
+        requirements: "{{ APP_PATH.stdout }}/requirements.txt"

@@ -1,0 +1,21 @@
+--- # Install required software with apt-get
+
+- name: Install software
+  hosts: raspberry_meteo
+  gather_facts: no
+  tasks:
+    - name: Install Redis for message broker
+      apt:
+        name: redis-server
+    - name: Install PostgreSQL server to store measurement data
+      apt:
+        name: postgresql-12
+    - name: Install i2c-tools for debugging communication with sensors
+      apt:
+        name: i2c-tools
+    - name: Install libs for some python package
+      apt:
+        name: ["libhdf5-dev", "gcc", "libssl-dev", "zlib1g-dev", "libpq-dev"]
+    - name: Install acl for become_user
+      apt:
+        name: acl
