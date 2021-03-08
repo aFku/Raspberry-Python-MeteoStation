@@ -4,7 +4,7 @@ source /home/${SUDO_USER}/.profile
 
 export PYTHONPATH="$APP_PATH/meteo_web_interface/:$PYTHONPATH"
 
-export GUNICORN="/home/${SUDO_USER}/.local/bin/gunicorn"
+export GUNICORN="/usr/local/bin/gunicorn"
 
 export CELERY="/usr/local/bin/celery"
 
