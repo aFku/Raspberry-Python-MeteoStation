@@ -1,3 +1,0 @@
-#Put this file in /etc/cron.d/ and rename it to your username
-
-@reboot rasp bash /home/rasp/github/Raspberry-Python-MeteoStation/meteo_web_interface/startup.sh 2>&1 | logger -t project-meteo
