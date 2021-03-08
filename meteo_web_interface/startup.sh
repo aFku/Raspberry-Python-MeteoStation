@@ -1,10 +1,8 @@
 #!/bin/bash
 
-user=$(whoami)
-
 source $HOME/.profile
 
-export PYTHONPATH="/home/rasp/github/Raspberry-Python-MeteoStation/meteo_web_interface/:$PYTHONPATH"
+export PYTHONPATH="$APP_PATH/meteo_web_interface/:$PYTHONPATH"
 
 export GUNICORN="/home/${user}/.local/bin/gunicorn"
 
