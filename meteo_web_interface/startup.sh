@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source $HOME/.profile
+source /home/${SUDO_USER}/.profile
 
 export PYTHONPATH="$APP_PATH/meteo_web_interface/:$PYTHONPATH"
 
-export GUNICORN="/home/${user}/.local/bin/gunicorn"
+export GUNICORN="/home/${SUDO_USER}/.local/bin/gunicorn"
 
 export CELERY="/usr/local/bin/celery"
 
