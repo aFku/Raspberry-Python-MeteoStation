@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /home/${USER}/.profile
+source "/home/$1/.profile"
 
 export PYTHONPATH="$APP_PATH/meteo_web_interface/:$PYTHONPATH"
 
