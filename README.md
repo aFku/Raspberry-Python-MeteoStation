@@ -165,6 +165,8 @@ All measurements are presented with Django application. There are three URI adre
 /pressure
 ```
 Each page has three tables. First table shows current measurement. If you refresh website, Django will execute measurement and show current fresh data. Second table shows all measurements with date. Last table shows avarage values for given periods of time.
+
+
 <img src="https://user-images.githubusercontent.com/44970719/110710012-6d932180-81fd-11eb-80eb-0ae96d929e45.PNG" alt="light" width="191.7"/>
 <img src="https://user-images.githubusercontent.com/44970719/110710015-6e2bb800-81fd-11eb-9dd4-ca3ebcdc3aa7.PNG" alt="press" width="191.7"/>
 <img src="https://user-images.githubusercontent.com/44970719/110710016-6ec44e80-81fd-11eb-9c38-7734c6814706.PNG" alt="temp" width="191.7"/>
